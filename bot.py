@@ -17,12 +17,12 @@ import json
 from datetime import datetime
 
 logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(_name_)
+logger = logging.getLogger(__name__)
 
 BANNED_GROUPS = ['𝙄𝙉𝙁𝙊𝙎 𝙈𝙃𝙓𝙕', '𝑴𝒉𝒙𝒛 𝑹𝒆𝒇𝒆𝒓𝒆̂𝒏𝒄𝒊𝒂𝒔', 'BLUE POWER DONATES 𝗖𝗛𝗔𝗧 #𝟬1']
 
 class UserBot:
-    def _init_(self):
+    def __init__(self):
         self.client = None
         self.session_file = 'userbot_session'
         self.config_file = 'userbot_config.json'
@@ -64,7 +64,7 @@ class UserBot:
 
         async for dialog in self.client.iter_dialogs():
             entity = dialog.entity
-            if isinstance(entity, (Channel, Chat)) and entity.title.lower() not in (group.lower() for group in BANNED_GROUPS):  # Verifica se está banido
+            if isinstance(entity, (Channel, Chat)) and entity.title.lower() not in (group.lower() for group in BANNED_GROUPS):
                 try:
                     if isinstance(entity, Channel):
                         if entity.megagroup or entity.broadcast:
@@ -207,7 +207,7 @@ async def main():
     bot = UserBot()
     await bot.start()
 
-if _name_ == "_main_":
+if __name__ == "__main__":
     try:
         asyncio.run(main())
     except KeyboardInterrupt:
